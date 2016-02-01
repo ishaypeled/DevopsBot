@@ -7,4 +7,5 @@ allowable_commands = {
 "/ps": "ps",
 "/moo": "cowsay",
 "/mem": "free",
+"/start": "/start",
 }
