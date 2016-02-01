@@ -19,13 +19,6 @@ class DevopsBot:
         self.row = []
         self.items_in_row = 3
 
-        # Initialize DB
-        self.conn = sqlite3.connect('telegram.db')
-        self.c = self.conn.cursor()
-
-        # Create tables
-        self.c.execute('''create table if not exists Telegram (name STRING, last_name STRING, userid STRING UNIQUE)''')
-
         # Set keyboard buttons from commands.allowable_commands list
         for key in commands.allowable_commands.keys():
             self.row.append(key)
@@ -60,6 +53,13 @@ class DevopsBot:
             self._send_message(userid, "Thanks, "+name+" "+lastname+". No need to reregister")
 
     def handle_messages(self):
+        # Initialize DB
+        self.conn = sqlite3.connect('telegram.db')
+        self.c = self.conn.cursor()
+
+        # Create tables
+        self.c.execute('''create table if not exists Telegram (name STRING, last_name STRING, userid STRING UNIQUE)''')
+
         while True:
             print ("Waiting for message in queue")
             message = self.queue.get()
